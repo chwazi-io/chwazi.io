@@ -90,7 +90,7 @@ export class PlayerPicker {
 
 
     public draw(): void {
-        this.context.fillStyle = "orange";
+        this.context.fillStyle = "black";
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         let playersToDraw = this.players;
