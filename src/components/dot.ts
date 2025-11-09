@@ -1,12 +1,14 @@
 export class Dot {
-  constructor() {
-    this.location = {x: 0, y: 0}
+  private context: CanvasRenderingContext2D;
+
+  constructor(context: CanvasRenderingContext2D) {
+    this.context = context;
   }
 
-  draw(ctx){
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(this.location.x, this.location.y, 40, 0, 2 * Math.PI);
-    ctx.fill();
+  public draw(location: { x: number, y: number }) {
+    this.context.fillStyle = "red";
+    this.context.beginPath();
+    this.context.arc(location.x, location.y, 40, 0, 2 * Math.PI);
+    this.context.fill();
   }
 }
