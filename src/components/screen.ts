@@ -10,13 +10,7 @@ export class Screen extends HTMLElement {
   }
 
   draw() {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      this.context.fillStyle = "black";
-      // dark mode
-    }else{
-
-      this.context.fillStyle = "white";
-    }
+    this.context.fillStyle = "black";
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     Object.keys(this.dots).forEach(id => {
