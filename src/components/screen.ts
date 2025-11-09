@@ -5,14 +5,12 @@ export class Screen extends HTMLElement {
     super();
   }
   draw() {
-    console.log('Run Draw()')
     this.context.fillStyle = "orange";
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height); 
     this.dot.draw(this.context)
   }
   connectedCallback(){
     this.dot = new Dot() 
-    console.log('conected callback()')
     this.attachShadow({mode:"open"})
     this.canvas = document.createElement("canvas")
     this.shadowRoot.appendChild(this.canvas)
@@ -24,7 +22,6 @@ export class Screen extends HTMLElement {
       that.resize()
     })
     window.addEventListener("mousemove", (e) => {
-      console.log(e);
       this.dot.location.x = e.x
       this.dot.location.y = e.y
       that.draw()
@@ -40,6 +37,4 @@ export class Screen extends HTMLElement {
     this.canvas.setAttribute("height", window.innerHeight);
     this.draw()
   }
-
-
 }
