@@ -1,6 +1,158 @@
-<app-screen></app-screen>
-
+<div id="container">
+  <app-screen></app-screen>
+  <div id="overlay-top">
+    <button id="buttonN1" class="selected">1</button>
+    <button id="buttonN2">2</button>
+    <button id="buttonN3">3</button>
+    <button id="buttonN4">4</button>
+    <button id="buttonN5">5</button>
+    <button id="buttonN6">6</button>
+    <button id="buttonN7">7</button>
+    <button id="buttonN8">8</button>
+    <button id="buttonN9">9</button>
+    <button id="buttonN10">10</button>
+  </div>
+  <div id="overlay-bottem">
+    <button id="buttonToggleFullscreen">Fullscreen</button>
+  </div>
+  <div id="overlay-top-left">
+    <button id="buttonSetPolicyNFingers" class="selected">Select fingers</button>
+    <button id="buttonSetPolicyMakeGroups">Make groups</button>
+  </div>
+</div>
 <script>
-import { Screen } from './screen'
-customElements.define('app-screen', Screen)
+  import { Screen } from './screen';
+  customElements.define('app-screen', Screen);
+  document.getElementById("buttonToggleFullscreen").addEventListener("click", toggleFullscreen);
+  document.getElementById("buttonSetPolicyNFingers").addEventListener("click", setPolicyNFingers);
+  document.getElementById("buttonSetPolicyMakeGroups").addEventListener("click", setPolicyMakeGroups);
+  document.getElementById("buttonN1").addEventListener("click", () => {setN(1)});
+  document.getElementById("buttonN2").addEventListener("click", () => {setN(2)});
+  document.getElementById("buttonN3").addEventListener("click", () => {setN(3)});
+  document.getElementById("buttonN4").addEventListener("click", () => {setN(4)});
+  document.getElementById("buttonN5").addEventListener("click", () => {setN(5)});
+  document.getElementById("buttonN6").addEventListener("click", () => {setN(6)});
+  document.getElementById("buttonN7").addEventListener("click", () => {setN(7)});
+  document.getElementById("buttonN8").addEventListener("click", () => {setN(8)});
+  document.getElementById("buttonN9").addEventListener("click", () => {setN(9)});
+  document.getElementById("buttonN10").addEventListener("click", () => {setN(10)});
+
+  function toggleFullscreen(e){
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+        .catch(err => {
+          alert(`Error attempting to enable fullscreen: ${err.message} (${err.name})`);
+        });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+  function setN(n){
+    for (let i = 1; i <= 10; i++){
+
+      console.log("Set N to", n, i, "buttonN" + i.toString());
+      if (n == i) {
+        document.getElementById("buttonN" + i.toString()).classList.add("selected"); 
+      }else{
+        document.getElementById("buttonN" + i.toString()).classList.remove("selected"); 
+      }
+    }
+
+    //Todo: add to Player
+  }
+
+  function setPolicyNFingers() {
+    document.getElementById("buttonSetPolicyNFingers").classList.add("selected"); 
+    document.getElementById("buttonSetPolicyMakeGroups").classList.remove("selected"); 
+    console.log('setPolicyNFingers')
+  }
+  function setPolicyMakeGroups() {
+    document.getElementById("buttonSetPolicyNFingers").classList.remove("selected"); 
+    document.getElementById("buttonSetPolicyMakeGroups").classList.add("selected"); 
+    console.log('setPolicyMakeGroups')
+  }
+  function hideControls(){
+    document.getElementById("overlay-top").classList.add("hide"); 
+    document.getElementById("overlay-bottem").classList.add("hide"); 
+    document.getElementById("overlay-top-left").classList.add("hide"); 
+  }
+  function showControls(){
+    document.getElementById("overlay-top").classList.remove("hide"); 
+    document.getElementById("overlay-bottem").classList.remove("hide"); 
+    document.getElementById("overlay-top-left").classList.remove("hide"); 
+  }
+
 </script>
+
+<style>
+  #container {
+    position:  margin-inline: auto;
+  }
+  #container app-screen, #overlay-top, #overlay-bottem, #overlay-top-left {
+    position: absolute;
+
+  }
+  app-screen {
+    /*border: 1px solid black;*/
+  }
+  #overlay-top {
+    margin-inline: auto;
+    width: 230px;
+    /*background-color: light-dark(white, black);*/
+    left: 0;
+    top: 0;
+    /*
+    padding: 5px 15px 10px 5px;
+    border-radius: 0px 0px 20px 0px;
+    */
+  }
+  #overlay-bottem {
+    margin-inline: 100% 0% 0% 0%;
+    width: 150px;
+    /*background-color: light-dark(white, black);*/
+    bottom: 0;
+    right: 0;
+    /*
+    padding: 10px 5px 5px 15px;
+    border-radius: 20px 0px 0px 0px;
+    */
+  }
+  #overlay-top button, #overlay-top-left button, #overlay-bottem button {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-size: 30px;
+    background-color: transparent;
+    /*color: light-dark(black, white);*/
+    color: white;
+  }
+  button.selected {
+    font-weight: bold;
+  }
+  #overlay-top-left {
+    margin-inline: 100% 0% 0% 0%;
+    width: 375px;
+    /*background-color: light-dark(white, black);*/
+    top: 0;
+    right: 0;
+    /*
+    padding: 5px 15px 10px 5px;
+    border-radius: 0px 0px 0px 20px;
+    */
+  }
+
+  div.hide {
+    display: none;
+  }
+  html {
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+
+  /*  
+  :root {
+    color-schema: light dark;
+  }
+   */
+</style>
+
