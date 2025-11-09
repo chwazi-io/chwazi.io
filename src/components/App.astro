@@ -1,7 +1,7 @@
-<div id="containe">
+<div id="container">
   <app-screen></app-screen>
   <div id="overlay-top">
-    <button id="buttonN1">1</button>
+    <button id="buttonN1" class="selected">1</button>
     <button id="buttonN2">2</button>
     <button id="buttonN3">3</button>
     <button id="buttonN4">4</button>
@@ -16,14 +16,13 @@
     <button id="buttonToggleFullscreen">Fullscreen</button>
   </div>
   <div id="overlay-top-left">
-    <button id="buttonSetPolicyNFingers">Select fingers</button>
+    <button id="buttonSetPolicyNFingers" class="selected">Select fingers</button>
     <button id="buttonSetPolicyMakeGroups">Make groups</button>
   </div>
 </div>
 <script>
   import { Screen } from './screen';
   customElements.define('app-screen', Screen);
-
   document.getElementById("buttonToggleFullscreen").addEventListener("click", toggleFullscreen);
   document.getElementById("buttonSetPolicyNFingers").addEventListener("click", setPolicyNFingers);
   document.getElementById("buttonSetPolicyMakeGroups").addEventListener("click", setPolicyMakeGroups);
@@ -49,16 +48,40 @@
     }
   }
   function setN(n){
-    alert(n)
+    for (let i = 1; i <= 10; i++){
+
+      console.log("Set N to", n, i, "buttonN" + i.toString());
+      if (n == i) {
+        document.getElementById("buttonN" + i.toString()).classList.add("selected"); 
+      }else{
+        document.getElementById("buttonN" + i.toString()).classList.remove("selected"); 
+      }
+    }
+
+    //Todo: add to Player
   }
 
   function setPolicyNFingers() {
-    alert('setPolicyNFingers')
+    document.getElementById("buttonSetPolicyNFingers").classList.add("selected"); 
+    document.getElementById("buttonSetPolicyMakeGroups").classList.remove("selected"); 
+    console.log('setPolicyNFingers')
   }
   function setPolicyMakeGroups() {
-    alert('setPolicyMakeGroups')
+    document.getElementById("buttonSetPolicyNFingers").classList.remove("selected"); 
+    document.getElementById("buttonSetPolicyMakeGroups").classList.add("selected"); 
+    console.log('setPolicyMakeGroups')
   }
-  console.log("full", toggleFullscreen)
+  function hideControls(){
+    document.getElementById("overlay-top").classList.add("hide"); 
+    document.getElementById("overlay-bottem").classList.add("hide"); 
+    document.getElementById("overlay-top-left").classList.add("hide"); 
+  }
+  function showControls(){
+    document.getElementById("overlay-top").classList.remove("hide"); 
+    document.getElementById("overlay-bottem").classList.remove("hide"); 
+    document.getElementById("overlay-top-left").classList.remove("hide"); 
+  }
+
 </script>
 
 <style>
@@ -74,30 +97,48 @@
   }
   #overlay-top {
     margin-inline: auto;
-    width: 160px;
-    background-color: red;
+    width: 220px;
+    background-color: lightgray;
     left: 0;
     top: 0;
+    padding: 5px 15px 10px 5px;
+    border-radius: 0px 0px 20px 0px;
   }
   #overlay-bottem {
     margin-inline: 100% 0% 0% 0%;
-    width: 75px;
-    background-color: blue;
+    width: 150px;
+    background-color: lightgray;
     bottom: 0;
     right: 0;
+    padding: 10px 5px 5px 15px;
+    border-radius: 20px 0px 0px 0px;
   }
-  #overlay-top button {
+  #overlay-top button, #overlay-top-left button, #overlay-bottem button {
     margin: 0px;
     padding: 0px;
     border: 0px;
+    font-size: 30px;
+    background-color: lightgray;
+  }
+  button.selected {
+    font-weight: bold;
   }
   #overlay-top-left {
-
     margin-inline: 100% 0% 0% 0%;
-    width: 75px;
-    background-color: blue;
+    width: 375px;
+    background-color: lightgray;
     top: 0;
     right: 0;
+    padding: 5px 15px 10px 5px;
+    border-radius: 0px 0px 0px 20px;
+  }
+
+  div.hide {
+    display: none;
+  }
+  html {
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
 
 </style>
