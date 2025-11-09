@@ -98,7 +98,7 @@ export class PlayerPicker {
         if (this.phase === PlayerPickerPhase.PlayersSelected) {
             playersToDraw = this._winners;
         }
-
+        console.log(playersToDraw)
         playersToDraw.forEach(player => player.drawDot(this.context));
     }
 }

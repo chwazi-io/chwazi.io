@@ -30,22 +30,22 @@ export class Screen extends HTMLElement {
   }
 
   private startTouch(event: TouchEvent) {
-    console.log('start touch');
+    console.log('start touch', event);
     const newTouches = [ ... event.targetTouches ].filter(t => !this.playerPicker.getPlayerById(t.identifier));
     newTouches.forEach(touch => this.playerPicker.addPlayer(new Player(touch)));
     this.playerPicker.draw();
   }
 
   private moveTouch(event: TouchEvent) {
-    console.log('move touch');
+    console.log('move touch', event);
     [ ...event.targetTouches ].forEach(t => this.playerPicker.getPlayerById(t.identifier)?.updateTouch(t));
     this.playerPicker.draw();
   }
 
   private endTouch(event: TouchEvent) {
-    console.log('end touch');
+    console.log('end touch', event);
     const touchIds = [ ... event.targetTouches ].map(t => t.identifier);
-    this.playerPicker.players.forEach(p => !touchIds.includes(p.id));
+    this.playerPicker.players.filter(p => !touchIds.includes(p.id)).forEach(p => this.playerPicker.removePlayer(p.id))
     this.playerPicker.draw();
   }
 
