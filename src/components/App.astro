@@ -98,27 +98,32 @@
   #overlay-top {
     margin-inline: auto;
     width: 230px;
-    background-color: lightgray;
+    background-color: light-dark(white, black);
     left: 0;
     top: 0;
+    /*
     padding: 5px 15px 10px 5px;
     border-radius: 0px 0px 20px 0px;
+    */
   }
   #overlay-bottem {
     margin-inline: 100% 0% 0% 0%;
     width: 150px;
-    background-color: lightgray;
+    background-color: light-dark(white, black);
     bottom: 0;
     right: 0;
+    /*
     padding: 10px 5px 5px 15px;
     border-radius: 20px 0px 0px 0px;
+    */
   }
   #overlay-top button, #overlay-top-left button, #overlay-bottem button {
     margin: 0px;
     padding: 0px;
     border: 0px;
     font-size: 30px;
-    background-color: lightgray;
+    background-color: light-dark(white, black);
+    color: light-dark(black, white);
   }
   button.selected {
     font-weight: bold;
@@ -126,11 +131,13 @@
   #overlay-top-left {
     margin-inline: 100% 0% 0% 0%;
     width: 375px;
-    background-color: lightgray;
+    background-color: light-dark(white, black);
     top: 0;
     right: 0;
+    /*
     padding: 5px 15px 10px 5px;
     border-radius: 0px 0px 0px 20px;
+    */
   }
 
   div.hide {
@@ -141,5 +148,8 @@
     overflow-x: hidden;
   }
 
+  :root {
+    color-schema: light dark;
+  }
 </style>
 

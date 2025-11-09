@@ -8,16 +8,22 @@ export class Screen extends HTMLElement {
   constructor(){
     super();
   }
-  
+
   draw() {
-    this.context.fillStyle = "orange";
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      this.context.fillStyle = "black";
+      // dark mode
+    }else{
+
+      this.context.fillStyle = "white";
+    }
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     Object.keys(this.dots).forEach(id => {
       this.dots[Number(id)].draw();
     });
   }
-  
+
   connectedCallback(){
     this.attachShadow({mode:"open"});
     this.canvas = document.createElement("canvas");
@@ -52,8 +58,8 @@ export class Screen extends HTMLElement {
   private endTouch(event: TouchEvent) {
     const touchIds = [ ... event.targetTouches ].map(t => t.identifier);
     Object.entries(this.dots)
-      .filter(([ id, dot ]) => !touchIds.includes(Number(id)))
-      .forEach(([ id, dot ]) => delete this.dots[Number(id)]);
+    .filter(([ id, dot ]) => !touchIds.includes(Number(id)))
+    .forEach(([ id, dot ]) => delete this.dots[Number(id)]);
     this.draw();
   }
 
