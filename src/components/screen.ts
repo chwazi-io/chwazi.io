@@ -22,34 +22,34 @@ export class Screen extends HTMLElement {
       that.resize()
     });
 
-    this.playerPicker.draw();
-
     this.addEventListener("touchstart", this.startTouch);
     this.addEventListener("touchmove", this.moveTouch);
     this.addEventListener("touchend", this.endTouch);
+
+    requestAnimationFrame(() => this.playerPicker.draw());
   }
 
   private startTouch(event: TouchEvent) {
     // console.log('start touch', event);
     [ ... event.targetTouches ].forEach(touch => this.playerPicker.addPlayer(touch));
-    this.playerPicker.draw();
+    // this.playerPicker.draw();
   }
 
   private moveTouch(event: TouchEvent) {
     // console.log('move touch', event);
     [ ...event.changedTouches ].forEach(t => this.playerPicker.getPlayerById(t.identifier)?.updateTouch(t));
-    this.playerPicker.draw();
+    // this.playerPicker.draw();
   }
 
   private endTouch(event: TouchEvent) {
     // console.log('end touch', event);
     [ ... event.changedTouches ].forEach(t => this.playerPicker.removePlayer(t.identifier))
-    this.playerPicker.draw();
+    // this.playerPicker.draw();
   }
 
   private resize(){
     this.canvas.setAttribute("width", window.innerWidth.toString());
     this.canvas.setAttribute("height", window.innerHeight.toString());
-    this.playerPicker.draw()
+    // this.playerPicker.draw()
   }
 }

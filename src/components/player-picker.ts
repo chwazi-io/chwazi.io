@@ -112,7 +112,7 @@ export class PlayerPicker {
         console.log('winners', this._winners);
 
         this.timer = setTimeout(() => this.reset(), DURATION_TO_RESTART);
-        this.draw();
+        // this.draw();
     }
 
     private reset(): void {
@@ -120,7 +120,7 @@ export class PlayerPicker {
         this._phase = PlayerPickerPhase.PlayersSelection;
         this._players = [];
         this._winners = [];
-        this.draw();
+        // this.draw();
     }
 
     private clearTimer() {
@@ -146,6 +146,8 @@ export class PlayerPicker {
 
         // console.log(playersToDraw)
         playersToDraw.forEach(player => player.drawDot(this.context));
+
+        requestAnimationFrame(() => this.draw());
     }
 }
 

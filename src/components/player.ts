@@ -1,6 +1,8 @@
 export class Player {
   private touch: Touch;
   private _color: string;
+  private pulseValue: number = 0;
+  private addPulse = true;
 
   public get id(): number {
     return this.touch.identifier;
@@ -23,8 +25,18 @@ export class Player {
   public drawDot(context: CanvasRenderingContext2D): void {
     context.fillStyle = this._color;
     context.beginPath();
-    context.arc(this.touch.clientX, this.touch.clientY, 50, 0, 2 * Math.PI);
+    context.arc(this.touch.clientX, this.touch.clientY, 45 + this.pulseValue / 5, 0, 2 * Math.PI);
     context.fill();
+
+    if (this.pulseValue > 40) {
+      this.addPulse = false;
+    } else if (this.pulseValue < 1) {
+      this.addPulse = true;
+    }
+
+    console.log(this.pulseValue);
+
+    this.pulseValue += this.addPulse ? 1 : -1;
   }
 
   public drawDotBackground(context: CanvasRenderingContext2D): void {
