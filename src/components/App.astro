@@ -1,6 +1,104 @@
-<app-screen></app-screen>
-
+<div id="containe">
+  <app-screen></app-screen>
+  <div id="overlay-top">
+    <button id="buttonN1">1</button>
+    <button id="buttonN2">2</button>
+    <button id="buttonN3">3</button>
+    <button id="buttonN4">4</button>
+    <button id="buttonN5">5</button>
+    <button id="buttonN6">6</button>
+    <button id="buttonN7">7</button>
+    <button id="buttonN8">8</button>
+    <button id="buttonN9">9</button>
+    <button id="buttonN10">10</button>
+  </div>
+  <div id="overlay-bottem">
+    <button id="buttonToggleFullscreen">Fullscreen</button>
+  </div>
+  <div id="overlay-top-left">
+    <button id="buttonSetPolicyNFingers">Select fingers</button>
+    <button id="buttonSetPolicyMakeGroups">Make groups</button>
+  </div>
+</div>
 <script>
-import { Screen } from './screen'
-customElements.define('app-screen', Screen)
+  import { Screen } from './screen';
+  customElements.define('app-screen', Screen);
+
+  document.getElementById("buttonToggleFullscreen").addEventListener("click", toggleFullscreen);
+  document.getElementById("buttonSetPolicyNFingers").addEventListener("click", setPolicyNFingers);
+  document.getElementById("buttonSetPolicyMakeGroups").addEventListener("click", setPolicyMakeGroups);
+  document.getElementById("buttonN1").addEventListener("click", () => {setN(1)});
+  document.getElementById("buttonN2").addEventListener("click", () => {setN(2)});
+  document.getElementById("buttonN3").addEventListener("click", () => {setN(3)});
+  document.getElementById("buttonN4").addEventListener("click", () => {setN(4)});
+  document.getElementById("buttonN5").addEventListener("click", () => {setN(5)});
+  document.getElementById("buttonN6").addEventListener("click", () => {setN(6)});
+  document.getElementById("buttonN7").addEventListener("click", () => {setN(7)});
+  document.getElementById("buttonN8").addEventListener("click", () => {setN(8)});
+  document.getElementById("buttonN9").addEventListener("click", () => {setN(9)});
+  document.getElementById("buttonN10").addEventListener("click", () => {setN(10)});
+
+  function toggleFullscreen(e){
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+        .catch(err => {
+          alert(`Error attempting to enable fullscreen: ${err.message} (${err.name})`);
+        });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+  function setN(n){
+    alert(n)
+  }
+
+  function setPolicyNFingers() {
+    alert('setPolicyNFingers')
+  }
+  function setPolicyMakeGroups() {
+    alert('setPolicyMakeGroups')
+  }
+  console.log("full", toggleFullscreen)
 </script>
+
+<style>
+  #container {
+    position:  margin-inline: auto;
+  }
+  #container app-screen, #overlay-top, #overlay-bottem, #overlay-top-left {
+    position: absolute;
+
+  }
+  app-screen {
+    /*border: 1px solid black;*/
+  }
+  #overlay-top {
+    margin-inline: auto;
+    width: 160px;
+    background-color: red;
+    left: 0;
+    top: 0;
+  }
+  #overlay-bottem {
+    margin-inline: 100% 0% 0% 0%;
+    width: 75px;
+    background-color: blue;
+    bottom: 0;
+    right: 0;
+  }
+  #overlay-top button {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+  }
+  #overlay-top-left {
+
+    margin-inline: 100% 0% 0% 0%;
+    width: 75px;
+    background-color: blue;
+    top: 0;
+    right: 0;
+  }
+
+</style>
+
