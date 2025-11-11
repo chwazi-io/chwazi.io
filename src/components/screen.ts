@@ -71,7 +71,7 @@ export class Screen extends HTMLElement {
     }
     this.playerPicker._policy.setN(this.n);
   }
-  
+
   private setPolicy(){
     if (this.playerPicker === undefined) {
       return;
@@ -83,12 +83,12 @@ export class Screen extends HTMLElement {
     switch (name) {
       case "policy":
         this.policy = newValue;
-        this.setPolicy();
-        return;
+      this.setPolicy();
+      return;
       case "n":
         this.n = +newValue;
-        this.setPolicyN();
-        return;
+      this.setPolicyN();
+      return;
       default:
         return;
     }

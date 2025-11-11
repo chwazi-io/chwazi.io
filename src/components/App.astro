@@ -11,10 +11,10 @@
     <button id="buttonToggleFullscreen">Fullscreen</button>
   </div>
   <!-- TODO: the swap is not working yet
-  <div id="overlay-top-left">
+    <div id="overlay-top-left">
     <button id="buttonSetPolicyNFingers" class="selected">Select fingers</button>
     <button id="buttonSetPolicyMakeGroups">Make groups</button>
-  </div>
+    </div>
   -->
 </div>
 <script>
@@ -29,7 +29,7 @@
   // TODO: implement policy switching
   //bNFingersPolicy.addEventListener("click", setPolicyNFingers);
   //bMakeGroupsPolicy.addEventListener("click", setPolicyMakeGroups);
-  
+
   const overlayTop =  document.getElementById("overlay-top"); 
   const overlayBottem = document.getElementById("overlay-bottem"); 
   // TODO: implement policy switching
@@ -91,20 +91,20 @@
 
   /*
   The attribute "hideoverlay" in the HTML-tag <app-screen> will tell is if we need to hide the overlay.
-  */
+   */
   const mutationCallback = (mutationsList, observer) => {
-  for (const mutation of mutationsList) {
-    if (mutation.type !== "attributes" || mutation.attributeName !== "hideoverlay") {
-      continue;
+    for (const mutation of mutationsList) {
+      if (mutation.type !== "attributes" || mutation.attributeName !== "hideoverlay") {
+        continue;
+      }
+      const hideOverlay = screen.getAttribute(mutation.attributeName);
+      if(hideOverlay === "true"){
+        hideControls();
+      }
+      if(hideOverlay === "false"){
+        showControls();
+      }
     }
-    const hideOverlay = screen.getAttribute(mutation.attributeName);
-    if(hideOverlay === "true"){
-      hideControls();
-    }
-    if(hideOverlay === "false"){
-      showControls();
-    }
-  }
   };
   const observer = new MutationObserver(mutationCallback);
   observer.observe(screen, {attributes: true});
@@ -129,9 +129,9 @@
     left: 0;
     top: 0;
     /*
-    padding: 5px 15px 10px 5px;
-    border-radius: 0px 0px 20px 0px;
-    */
+padding: 5px 15px 10px 5px;
+border-radius: 0px 0px 20px 0px;
+*/
   }
   #overlay-bottem {
     margin-inline: 100% 0% 0% 0%;
@@ -140,9 +140,9 @@
     bottom: 0;
     right: 0;
     /*
-    padding: 10px 5px 5px 15px;
-    border-radius: 20px 0px 0px 0px;
-    */
+padding: 10px 5px 5px 15px;
+border-radius: 20px 0px 0px 0px;
+*/
   }
   #overlay-top button, #overlay-top-left button, #overlay-bottem button {
     margin: 0px;
@@ -163,20 +163,20 @@
     top: 0;
     right: 0;
     /*
-    padding: 5px 15px 10px 5px;
-    border-radius: 0px 0px 0px 20px;
-    */
+padding: 5px 15px 10px 5px;
+border-radius: 0px 0px 0px 20px;
+*/
   }
 
   div.hide {
     display: none;
   }
-  
+
 
   /*  
-  :root {
-    color-schema: light dark;
-  }
+      :root {
+        color-schema: light dark;
+      }
    */
 </style>
 
