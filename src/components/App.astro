@@ -10,26 +10,31 @@
   <div id="overlay-bottem">
     <button id="buttonToggleFullscreen">Fullscreen</button>
   </div>
+  <!-- TODO: the swap is not working yet
   <div id="overlay-top-left">
     <button id="buttonSetPolicyNFingers" class="selected">Select fingers</button>
     <button id="buttonSetPolicyMakeGroups">Make groups</button>
   </div>
+  -->
 </div>
 <script>
   import { Screen } from './screen';
   customElements.define('app-screen', Screen);
   const screen = document.getElementById("screen");
   const bToggleFullscreen = document.getElementById("buttonToggleFullscreen");
-  const bNFingersPolicy = document.getElementById("buttonSetPolicyNFingers");
-  const bMakeGroupsPolicy = document.getElementById("buttonSetPolicyMakeGroups");
+  // TODO: implement policy switching
+  //const bNFingersPolicy = document.getElementById("buttonSetPolicyNFingers");
+  //const bMakeGroupsPolicy = document.getElementById("buttonSetPolicyMakeGroups");
   bToggleFullscreen.addEventListener("click", toggleFullscreen);
-  bNFingersPolicy.addEventListener("click", setPolicyNFingers);
-  bMakeGroupsPolicy.addEventListener("click", setPolicyMakeGroups);
+  // TODO: implement policy switching
+  //bNFingersPolicy.addEventListener("click", setPolicyNFingers);
+  //bMakeGroupsPolicy.addEventListener("click", setPolicyMakeGroups);
   
   const overlayTop =  document.getElementById("overlay-top"); 
   const overlayBottem = document.getElementById("overlay-bottem"); 
-  const overlayTopLeft = document.getElementById("overlay-top-left"); 
-  const overlays = [overlayTop, overlayBottem, overlayTopLeft];
+  // TODO: implement policy switching
+  //const overlayTopLeft = document.getElementById("overlay-top-left"); 
+  const overlays = [overlayTop, overlayBottem/*, overlayTopLeft*/];
 
   const b1 = document.getElementById("buttonN1");
   const b2 = document.getElementById("buttonN2");
