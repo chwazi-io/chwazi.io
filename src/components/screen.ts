@@ -2,13 +2,15 @@ import { PlayerPicker } from "./player-picker.ts";
 import { Player } from "./player.ts";
 
 export class Screen extends HTMLElement {
+  static observedAttributes = ["policy", "n"];
   canvas!: HTMLCanvasElement;
   playerPicker!: PlayerPicker;
+  n: int;
 
   constructor(){
     super();
   }
-  
+
   connectedCallback(){
     this.attachShadow({mode:"open"});
     this.canvas = document.createElement("canvas");
@@ -16,6 +18,7 @@ export class Screen extends HTMLElement {
     this.canvas.setAttribute("width", window.innerWidth.toString());
     this.canvas.setAttribute("height", window.innerHeight.toString());
     this.playerPicker = new PlayerPicker(this.canvas);
+    this.setPolicyN();
     let that = this;
 
     window.addEventListener("resize", function(){
@@ -52,4 +55,28 @@ export class Screen extends HTMLElement {
     this.canvas.setAttribute("height", window.innerHeight.toString());
     // this.playerPicker.draw()
   }
+
+  private setPolicyN(){
+    if (this.playerPicker === undefined){
+      return
+    }
+    this.playerPicker._policy.setN(this.n);
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.log(
+      `Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
+    );
+    switch (name) {
+      case "policy":
+        this.policy = newValue;
+      return;
+      case "n":
+        this.n = +newValue;
+        this.setPolicyN();
+        return;
+      default:
+        return;
+    }
+  }  
 }

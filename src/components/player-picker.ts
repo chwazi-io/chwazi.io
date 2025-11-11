@@ -39,7 +39,7 @@ export class PlayerPicker {
     private timer?: NodeJS.Timeout;
     private _phase: PlayerPickerPhase = PlayerPickerPhase.PlayersSelection;
     private _winners: Player[] = [];
-    private _policy = new NFingersPolicy();
+    public _policy = new NFingersPolicy();
 
     
 
