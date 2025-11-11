@@ -36,6 +36,7 @@
   const overlayTop =  document.getElementById("overlay-top"); 
   const overlayBottem = document.getElementById("overlay-bottem"); 
   const overlayTopLeft = document.getElementById("overlay-top-left"); 
+  const overlays = [overlayTop, overlayBottem, overlayTopLeft];
 
   const b1 = document.getElementById("buttonN1");
   const b2 = document.getElementById("buttonN2");
@@ -49,15 +50,16 @@
     });
   });
 
-  function toggleFullscreen(e){
+  function toggleFullscreen(e) {
     if (document.fullscreenElement) {
       document.exitFullscreen();
-      return
+      return;
     }
     document.documentElement.requestFullscreen()
       .catch(err => alert(`Error attempting to enable fullscreen: ${err.message} (${err.name})`));
   }
-  function setN(n){
+
+  function setN(n) {
     const toSetID = "buttonN" + n.toString();
     bNums.forEach((b, i) => {
       if (b.id === toSetID){
@@ -75,22 +77,20 @@
     bMakeGroupsPolicy.classList.remove("selected"); 
     //TODO: set policy
   }
+
   function setPolicyMakeGroups() {
     bNFingersPolicy.classList.remove("selected"); 
     bMakeGroupsPolicy.classList.add("selected"); 
     //TODO: set policy
   }
-  function hideControls(){
-    overlayTop.classList.add("hide"); 
-    overlayBottem.classList.add("hide"); 
-    overlayTopLeft.classList.add("hide"); 
+
+  function hideControls() {
+    overlays.forEach((o, i) => o.classList.add("hide"));
   }
-  function showControls(){
-    overlayTop.classList.remove("hide"); 
-    overlayBottem.classList.remove("hide"); 
-    overlayTopLeft.classList.remove("hide"); 
+
+  function showControls() {
+    overlays.forEach((o, i) => o.classList.remove("hide"));
   }
-  
 
 </script>
 
