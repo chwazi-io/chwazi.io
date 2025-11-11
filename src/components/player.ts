@@ -34,7 +34,7 @@ export class Player {
       this.addPulse = true;
     }
 
-    console.log(this.pulseValue);
+    //console.log(this.pulseValue);
 
     this.pulseValue += this.addPulse ? 1 : -1;
   }

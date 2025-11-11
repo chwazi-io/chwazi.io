@@ -1,5 +1,5 @@
 import { Player } from "./player";
-
+import { NFingersPolicy } from "./nFingersPolicy.ts"; 
 const DURATION_TO_PICK_WINNER = 2000;
 const DURATION_TO_RESTART = 3000;
 const COLORS = [
@@ -39,6 +39,7 @@ export class PlayerPicker {
     private timer?: NodeJS.Timeout;
     private _phase: PlayerPickerPhase = PlayerPickerPhase.PlayersSelection;
     private _winners: Player[] = [];
+    private _policy = new NFingersPolicy();
 
     
 
@@ -105,12 +106,11 @@ export class PlayerPicker {
         this.clearTimer();
 
         this._phase = PlayerPickerPhase.PlayersSelected;
-        const index = Math.floor(Math.random() * this.players.length);
-
-        this._winners.push(this._players[index]);
+        this._winners = this._policy.drawFingers(this._players);
 
         console.log('winners', this._winners);
 
+        //TODO: change this to all finger gone from screen
         this.timer = setTimeout(() => this.reset(), DURATION_TO_RESTART);
         // this.draw();
     }
