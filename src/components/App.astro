@@ -33,6 +33,10 @@
   bNFingersPolicy.addEventListener("click", setPolicyNFingers);
   bMakeGroupsPolicy.addEventListener("click", setPolicyMakeGroups);
   
+  const overlayTop =  document.getElementById("overlay-top"); 
+  const overlayBottem = document.getElementById("overlay-bottem"); 
+  const overlayTopLeft = document.getElementById("overlay-top-left"); 
+
   const b1 = document.getElementById("buttonN1");
   const b2 = document.getElementById("buttonN2");
   const b3 = document.getElementById("buttonN3");
@@ -77,14 +81,14 @@
     //TODO: set policy
   }
   function hideControls(){
-    document.getElementById("overlay-top").classList.add("hide"); 
-    document.getElementById("overlay-bottem").classList.add("hide"); 
-    document.getElementById("overlay-top-left").classList.add("hide"); 
+    overlayTop.classList.add("hide"); 
+    overlayBottem.classList.add("hide"); 
+    overlayTopLeft.classList.add("hide"); 
   }
   function showControls(){
-    document.getElementById("overlay-top").classList.remove("hide"); 
-    document.getElementById("overlay-bottem").classList.remove("hide"); 
-    document.getElementById("overlay-top-left").classList.remove("hide"); 
+    overlayTop.classList.remove("hide"); 
+    overlayBottem.classList.remove("hide"); 
+    overlayTopLeft.classList.remove("hide"); 
   }
   
 
