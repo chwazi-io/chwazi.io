@@ -1,5 +1,5 @@
 <div id="container">
-  <app-screen id="screen" n="1" policy="nFinger"></app-screen>
+  <app-screen id="screen" n="1" policy="nFinger" hideoverlay="false"></app-screen>
   <div id="overlay-top">
     <button id="buttonN1" class="selected">1</button>
     <button id="buttonN2">2</button>
@@ -72,7 +72,7 @@
 
   function setPolicyMakeGroups() {
     bNFingersPolicy.classList.remove("selected"); 
-    bMakeGroupsPolicy.classList.add("selected"); 
+    bMakeGroupsPolicy.classList.add("selected");
     screen.setAttribute("policy", "makeGroups");
   }
 
@@ -83,6 +83,27 @@
   function showControls() {
     overlays.forEach((o, i) => o.classList.remove("hide"));
   }
+
+  /*
+  The attribute "hideoverlay" in the HTML-tag <app-screen> will tell is if we need to hide the overlay.
+  */
+  const mutationCallback = (mutationsList, observer) => {
+  for (const mutation of mutationsList) {
+    if (mutation.type !== "attributes" || mutation.attributeName !== "hideoverlay") {
+      continue;
+    }
+    const hideOverlay = screen.getAttribute(mutation.attributeName);
+    if(hideOverlay === "true"){
+      hideControls();
+    }
+    if(hideOverlay === "false"){
+      showControls();
+    }
+  }
+  };
+  const observer = new MutationObserver(mutationCallback);
+  observer.observe(screen, {attributes: true});
+
 </script>
 
 <style>

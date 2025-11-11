@@ -40,9 +40,8 @@ export class PlayerPicker {
     private timer?: NodeJS.Timeout;
     private _phase: PlayerPickerPhase = PlayerPickerPhase.PlayersSelection;
     private _winners: Player[] = [];
-    public _policy = new NFingersPolicy();
-
-    
+    public _policy = new NFingersPolicy(); 
+    private _resetCallback: () => void;
 
     public get players(): Player[] {
         return this._players;
@@ -109,9 +108,7 @@ export class PlayerPicker {
         this._phase = PlayerPickerPhase.PlayersSelected;
         this._winners = this._policy.drawFingers(this._players);
 
-        console.log('winners', this._winners);
-
-        //TODO: change this to all finger gone from screen
+        //TODO: change this to wait untill all finger gone from screen
         this.timer = setTimeout(() => this.reset(), DURATION_TO_RESTART);
         // this.draw();
     }
@@ -121,6 +118,7 @@ export class PlayerPicker {
         this._phase = PlayerPickerPhase.PlayersSelection;
         this._players = [];
         this._winners = [];
+        this._resetCallback();
         // this.draw();
     }
 
@@ -157,6 +155,9 @@ export class PlayerPicker {
       }else if(policyName === "makeGroups"){
         this._policy = new NGroupPolicy();
       }
+    }
+    public setResetCallback(f: () => void){
+      this._resetCallback = f;
     }
 }
 

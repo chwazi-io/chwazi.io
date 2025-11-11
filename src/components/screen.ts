@@ -20,6 +20,9 @@ export class Screen extends HTMLElement {
     this.playerPicker = new PlayerPicker(this.canvas);
     this.setPolicy();
     this.setPolicyN();
+    this.playerPicker.setResetCallback(() => {
+      this.setAttribute("hideoverlay", "false");
+    })
     let that = this;
 
     window.addEventListener("resize", function(){
@@ -31,11 +34,13 @@ export class Screen extends HTMLElement {
     this.addEventListener("touchend", this.endTouch);
 
     requestAnimationFrame(() => this.playerPicker.draw());
+    this.setAttribute("hy", "false");
   }
 
   private startTouch(event: TouchEvent) {
     // console.log('start touch', event);
     [ ... event.targetTouches ].forEach(touch => this.playerPicker.addPlayer(touch));
+    this.setAttribute("hideoverlay", "true");
     // this.playerPicker.draw();
   }
 
@@ -47,7 +52,10 @@ export class Screen extends HTMLElement {
 
   private endTouch(event: TouchEvent) {
     // console.log('end touch', event);
-    [ ... event.changedTouches ].forEach(t => this.playerPicker.removePlayer(t.identifier))
+    [ ... event.changedTouches ].forEach(t => this.playerPicker.removePlayer(t.identifier));
+    if (this.playerPicker.players.length == 0){
+      this.setAttribute("hideoverlay", "false");
+    }
     // this.playerPicker.draw();
   }
 
@@ -72,9 +80,6 @@ export class Screen extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    console.log(
-      `Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
-    );
     switch (name) {
       case "policy":
         this.policy = newValue;
