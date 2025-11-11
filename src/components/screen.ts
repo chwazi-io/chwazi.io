@@ -18,6 +18,7 @@ export class Screen extends HTMLElement {
     this.canvas.setAttribute("width", window.innerWidth.toString());
     this.canvas.setAttribute("height", window.innerHeight.toString());
     this.playerPicker = new PlayerPicker(this.canvas);
+    this.setPolicy();
     this.setPolicyN();
     let that = this;
 
@@ -57,10 +58,17 @@ export class Screen extends HTMLElement {
   }
 
   private setPolicyN(){
-    if (this.playerPicker === undefined){
-      return
+    if (this.playerPicker === undefined) {
+      return;
     }
     this.playerPicker._policy.setN(this.n);
+  }
+  
+  private setPolicy(){
+    if (this.playerPicker === undefined) {
+      return;
+    }
+    this.playerPicker.setPolicy(this.policy);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -70,7 +78,8 @@ export class Screen extends HTMLElement {
     switch (name) {
       case "policy":
         this.policy = newValue;
-      return;
+        this.setPolicy();
+        return;
       case "n":
         this.n = +newValue;
         this.setPolicyN();

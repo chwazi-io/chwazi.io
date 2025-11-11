@@ -1,5 +1,6 @@
 import { Player } from "./player";
 import { NFingersPolicy } from "./nFingersPolicy.ts"; 
+import { NGroupPolicy } from "./nGroupPolicy.ts"; 
 const DURATION_TO_PICK_WINNER = 2000;
 const DURATION_TO_RESTART = 3000;
 const COLORS = [
@@ -148,6 +149,14 @@ export class PlayerPicker {
         playersToDraw.forEach(player => player.drawDot(this.context));
 
         requestAnimationFrame(() => this.draw());
+    }
+
+    public setPolicy(policyName: string){
+      if (policyName === "nFingers") {
+        this._policy = new NFingersPolicy();
+      }else if(policyName === "makeGroups"){
+        this._policy = new NGroupPolicy();
+      }
     }
 }
 
