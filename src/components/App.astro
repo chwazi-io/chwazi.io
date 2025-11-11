@@ -26,9 +26,12 @@
 <script>
   import { Screen } from './screen';
   customElements.define('app-screen', Screen);
-  document.getElementById("buttonToggleFullscreen").addEventListener("click", toggleFullscreen);
-  document.getElementById("buttonSetPolicyNFingers").addEventListener("click", setPolicyNFingers);
-  document.getElementById("buttonSetPolicyMakeGroups").addEventListener("click", setPolicyMakeGroups);
+  const bToggleFullscreen = document.getElementById("buttonToggleFullscreen");
+  const bNFingersPolicy = document.getElementById("buttonSetPolicyNFingers");
+  const bMakeGroupsPolicy = document.getElementById("buttonSetPolicyMakeGroups");
+  bToggleFullscreen.addEventListener("click", toggleFullscreen);
+  bNFingersPolicy.addEventListener("click", setPolicyNFingers);
+  bMakeGroupsPolicy.addEventListener("click", setPolicyMakeGroups);
   
   const b1 = document.getElementById("buttonN1");
   const b2 = document.getElementById("buttonN2");
@@ -43,38 +46,35 @@
   });
 
   function toggleFullscreen(e){
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen()
-        .catch(err => {
-          alert(`Error attempting to enable fullscreen: ${err.message} (${err.name})`);
-        });
-    } else {
+    if (document.fullscreenElement) {
       document.exitFullscreen();
+      return
     }
+    document.documentElement.requestFullscreen()
+      .catch(err => alert(`Error attempting to enable fullscreen: ${err.message} (${err.name})`));
   }
   function setN(n){
-    for (let i = 1; i <= 10; i++){
-
-      console.log("Set N to", n, i, "buttonN" + i.toString());
-      if (n == i) {
-        document.getElementById("buttonN" + i.toString()).classList.add("selected"); 
-      }else{
-        document.getElementById("buttonN" + i.toString()).classList.remove("selected"); 
-      }
-    }
+    const toSetID = "buttonN" + n.toString();
+    bNums.forEach((b, i) => {
+      if (b.id === toSetID){
+        b.classList.add("selected");
+        return;
+      };
+      b.classList.remove("selected");
+    });
 
     //Todo: add to Player
   }
 
   function setPolicyNFingers() {
-    document.getElementById("buttonSetPolicyNFingers").classList.add("selected"); 
-    document.getElementById("buttonSetPolicyMakeGroups").classList.remove("selected"); 
-    console.log('setPolicyNFingers')
+    bNFingersPolicy.classList.add("selected"); 
+    bMakeGroupsPolicy.classList.remove("selected"); 
+    //TODO: set policy
   }
   function setPolicyMakeGroups() {
-    document.getElementById("buttonSetPolicyNFingers").classList.remove("selected"); 
-    document.getElementById("buttonSetPolicyMakeGroups").classList.add("selected"); 
-    console.log('setPolicyMakeGroups')
+    bNFingersPolicy.classList.remove("selected"); 
+    bMakeGroupsPolicy.classList.add("selected"); 
+    //TODO: set policy
   }
   function hideControls(){
     document.getElementById("overlay-top").classList.add("hide"); 
