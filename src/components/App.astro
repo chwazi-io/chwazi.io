@@ -6,11 +6,14 @@
     <button id="buttonN3">3</button>
     <button id="buttonN4">4</button>
     <button id="buttonN5">5</button>
+    
+    <!-- We probably dont need 6 till 10
     <button id="buttonN6">6</button>
     <button id="buttonN7">7</button>
     <button id="buttonN8">8</button>
     <button id="buttonN9">9</button>
     <button id="buttonN10">10</button>
+    -->
   </div>
   <div id="overlay-bottem">
     <button id="buttonToggleFullscreen">Fullscreen</button>
@@ -26,16 +29,18 @@
   document.getElementById("buttonToggleFullscreen").addEventListener("click", toggleFullscreen);
   document.getElementById("buttonSetPolicyNFingers").addEventListener("click", setPolicyNFingers);
   document.getElementById("buttonSetPolicyMakeGroups").addEventListener("click", setPolicyMakeGroups);
-  document.getElementById("buttonN1").addEventListener("click", () => {setN(1)});
-  document.getElementById("buttonN2").addEventListener("click", () => {setN(2)});
-  document.getElementById("buttonN3").addEventListener("click", () => {setN(3)});
-  document.getElementById("buttonN4").addEventListener("click", () => {setN(4)});
-  document.getElementById("buttonN5").addEventListener("click", () => {setN(5)});
-  document.getElementById("buttonN6").addEventListener("click", () => {setN(6)});
-  document.getElementById("buttonN7").addEventListener("click", () => {setN(7)});
-  document.getElementById("buttonN8").addEventListener("click", () => {setN(8)});
-  document.getElementById("buttonN9").addEventListener("click", () => {setN(9)});
-  document.getElementById("buttonN10").addEventListener("click", () => {setN(10)});
+  
+  const b1 = document.getElementById("buttonN1");
+  const b2 = document.getElementById("buttonN2");
+  const b3 = document.getElementById("buttonN3");
+  const b4 = document.getElementById("buttonN4");
+  const b5 = document.getElementById("buttonN5");
+  const bNums = [b1, b2, b3, b4, b5];
+  bNums.forEach((b, i) => {
+    b.addEventListener("click", () => {
+      setN(i+1);
+    });
+  });
 
   function toggleFullscreen(e){
     if (!document.fullscreenElement) {
