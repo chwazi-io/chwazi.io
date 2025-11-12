@@ -40,7 +40,7 @@ export class PlayerPicker {
   private timer?: NodeJS.Timeout;
   private _phase: PlayerPickerPhase = PlayerPickerPhase.PlayersSelection;
   private _winners: Player[] = [];
-  public _policy = new NFingersPolicy(); 
+  private _policy = new NFingersPolicy(); 
   private _resetCallback: () => void;
 
   public get players(): Player[] {
@@ -95,7 +95,7 @@ export class PlayerPicker {
       this.clearTimer();
     }
 
-    if (this.players.length < 2) {
+    if (this.players.length <= this._policy.getN()) {
       return;
     }
 
@@ -132,7 +132,21 @@ export class PlayerPicker {
 
 
   public draw(): void {
-    this.context.fillStyle = this._phase === PlayerPickerPhase.PlayersSelected ? this._winners[0].color : "black";
+    let fill: string | CanvasGradient | CanvasPattern = 'black';
+
+    if (this._phase === PlayerPickerPhase.PlayersSelected) {
+      if (this._winners.length === 1) {
+        fill = this._winners[0].color;
+      } else {
+        fill = this.context.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
+        for (let i = 0; i < this._winners.length; i++) {
+          
+          fill.addColorStop(i / (this._winners.length - 1),  this._winners[i].color);
+        }
+      }
+    }
+
+    this.context.fillStyle = fill;
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     let playersToDraw = this.players;
