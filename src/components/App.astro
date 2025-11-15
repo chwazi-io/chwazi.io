@@ -8,7 +8,20 @@
     <button id="buttonN5">5</button>
   </div>
   <div id="overlay-bottem">
-    <button id="buttonToggleFullscreen">Fullscreen</button>
+    <!--<button id="buttonToggleFullscreen">Fullscreen</button>-->
+
+
+    <span id="buttonToggleFullscreen">
+      <svg id="iconFullscreenOn" width="64px" height="64px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10 15H15V10H13.2V13.2H10V15ZM6 15V13.2H2.8V10H1V15H6ZM10 2.8H12.375H13.2V6H15V1H10V2.8ZM6 1V2.8H2.8V6H1V1H6Z" fill="#FFFFFF"/>
+      </svg>
+      <svg id="iconFullscreenOff" class="hide" width="64px" height="64px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 6L6 6L6 1L4.2 1L4.2 4.2L1 4.2L1 6Z" fill="#FFFFFF"/>
+        <path d="M15 10L10 10L10 15L11.8 15L11.8 11.8L15 11.8L15 10Z" fill="#FFFFFF"/>
+        <path d="M6 15L6 10L1 10L1 11.8L4.2 11.8L4.2 15L6 15Z" fill="#FFFFFF"/>
+        <path d="M10 1L10 6L15 6L15 4.2L11.8 4.2L11.8 1L10 1Z" fill="#FFFFFF"/>
+      </svg>
+    </span>
   </div>
   <!-- TODO: the swap is not working yet
     <div id="overlay-top-left">
@@ -22,6 +35,9 @@
   customElements.define('app-screen', Screen);
   const screen = document.getElementById("screen");
   const bToggleFullscreen = document.getElementById("buttonToggleFullscreen");
+  const iFullscreenOff = document.getElementById("iconFullscreenOff");
+  const iFullscreenOn = document.getElementById("iconFullscreenOn");
+
   // TODO: implement policy switching
   //const bNFingersPolicy = document.getElementById("buttonSetPolicyNFingers");
   //const bMakeGroupsPolicy = document.getElementById("buttonSetPolicyMakeGroups");
@@ -51,10 +67,14 @@
   function toggleFullscreen(e) {
     if (document.fullscreenElement) {
       document.exitFullscreen();
+      iFullscreenOn.classList.remove("hide");
+      iFullscreenOff.classList.add("hide");
       return;
     }
     document.documentElement.requestFullscreen()
       .catch(err => alert(`Error attempting to enable fullscreen: ${err.message} (${err.name})`));
+    iFullscreenOn.classList.add("hide");
+    iFullscreenOff.classList.remove("hide");
   }
 
   function setN(n) {
@@ -135,7 +155,7 @@ border-radius: 0px 0px 20px 0px;
   }
   #overlay-bottem {
     margin-inline: 100% 0% 0% 0%;
-    width: 150px;
+    width: 75px;
     /*background-color: light-dark(white, black);*/
     bottom: 0;
     right: 0;
@@ -167,8 +187,7 @@ padding: 5px 15px 10px 5px;
 border-radius: 0px 0px 0px 20px;
 */
   }
-
-  div.hide {
+  svg.hide, div.hide {
     display: none;
   }
 
