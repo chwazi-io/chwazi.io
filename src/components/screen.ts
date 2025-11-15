@@ -38,6 +38,7 @@ export class Screen extends HTMLElement {
   }
 
   private startTouch(event: TouchEvent) {
+    event.preventDefault();
     // console.log('start touch', event);
     [ ... event.targetTouches ].forEach(touch => this.playerPicker.addPlayer(touch));
     this.setAttribute("hideoverlay", "true");
@@ -45,12 +46,14 @@ export class Screen extends HTMLElement {
   }
 
   private moveTouch(event: TouchEvent) {
+    event.preventDefault();
     // console.log('move touch', event);
     [ ...event.changedTouches ].forEach(t => this.playerPicker.getPlayerById(t.identifier)?.updateTouch(t));
     // this.playerPicker.draw();
   }
 
   private endTouch(event: TouchEvent) {
+    event.preventDefault();
     // console.log('end touch', event);
     [ ... event.changedTouches ].forEach(t => this.playerPicker.removePlayer(t.identifier));
     if (this.playerPicker.players.length == 0){
