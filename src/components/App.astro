@@ -1,15 +1,13 @@
 <div id="container">
   <app-screen id="screen" n="1" policy="nFinger" hideoverlay="false"></app-screen>
-  <div id="overlay-top">
-    <button id="buttonN1" class="selected">1</button>
-    <button id="buttonN2">2</button>
-    <button id="buttonN3">3</button>
-    <button id="buttonN4">4</button>
-    <button id="buttonN5">5</button>
-  </div>
   <div id="overlay-bottem">
-    <!--<button id="buttonToggleFullscreen">Fullscreen</button>-->
-
+    <span id="buttonToggleSettings">
+      <svg fill="#FFFFFF" width="64px" height="64px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <path d="M0 3.7L11 3.7 11 2.3 0 2.3 0 3.7zM13 0C12.4477153 0 12 .44771525 12 1L12 5C12 5.55228475 12.4477153 6 13 6 13.5522847 6 14 5.55228475 14 5L14 1C14 .44771525 13.5522847 0 13 0zM7 8.3L7 7C7 6.44771525 6.55228475 6 6 6 5.44771525 6 5 6.44771525 5 7L5 11C5 11.5522847 5.44771525 12 6 12 6.55228475 12 7 11.5522847 7 11L7 9.7 14 9.7 14 8.3 7 8.3zM0 9.7L4 9.7 4 8.3 0 8.3 0 9.7z" transform="translate(1 2)"/>
+        </g>
+      </svg>
+    </span>
 
     <span id="buttonToggleFullscreen">
       <svg id="iconFullscreenOn" width="64px" height="64px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,12 +21,18 @@
       </svg>
     </span>
   </div>
-  <!-- TODO: the swap is not working yet
-    <div id="overlay-top-left">
-    <button id="buttonSetPolicyNFingers" class="selected">Select fingers</button>
-    <button id="buttonSetPolicyMakeGroups">Make groups</button>
-    </div>
-  -->
+  <div id="settings" class="hide">
+    <p class="title">Settings</p>
+    <p></p>
+    <p>How many fingers do you want to select?</p>
+    <span>
+    <button id="buttonN1" class="selected">1</button>
+    <button id="buttonN2">2</button>
+    <button id="buttonN3">3</button>
+    <button id="buttonN4">4</button>
+    <button id="buttonN5">5</button>
+    </span>
+  </div>
 </div>
 <script>
   import { Screen } from './screen';
@@ -37,20 +41,22 @@
   const bToggleFullscreen = document.getElementById("buttonToggleFullscreen");
   const iFullscreenOff = document.getElementById("iconFullscreenOff");
   const iFullscreenOn = document.getElementById("iconFullscreenOn");
-
-  // TODO: implement policy switching
-  //const bNFingersPolicy = document.getElementById("buttonSetPolicyNFingers");
-  //const bMakeGroupsPolicy = document.getElementById("buttonSetPolicyMakeGroups");
   bToggleFullscreen.addEventListener("click", toggleFullscreen);
-  // TODO: implement policy switching
-  //bNFingersPolicy.addEventListener("click", setPolicyNFingers);
-  //bMakeGroupsPolicy.addEventListener("click", setPolicyMakeGroups);
+  const bToggleSettings = document.getElementById("buttonToggleSettings");
+  bToggleSettings.addEventListener("click", toggleSettings);
+  const overlaySettings = document.getElementById("settings");
 
-  const overlayTop =  document.getElementById("overlay-top"); 
+  function toggleSettings(){
+    if(overlaySettings.classList.contains('hide')){
+      overlaySettings.classList.remove("hide");
+      return;
+    }
+    overlaySettings.classList.add("hide");
+  }
+
+
   const overlayBottem = document.getElementById("overlay-bottem"); 
-  // TODO: implement policy switching
-  //const overlayTopLeft = document.getElementById("overlay-top-left"); 
-  const overlays = [overlayTop, overlayBottem/*, overlayTopLeft*/];
+  const overlays = [overlaySettings, overlayBottem];
 
   const b1 = document.getElementById("buttonN1");
   const b2 = document.getElementById("buttonN2");
@@ -132,70 +138,76 @@
 </script>
 
 <style>
-  #container {
+  div#container {
     position:  margin-inline: auto;
   }
-  #container app-screen, #overlay-top, #overlay-bottem, #overlay-top-left {
+
+  #container app-screen, div#overlay-bottem, div#settings {
     position: absolute;
 
   }
-  app-screen {
-    /*border: 1px solid black;*/
-  }
-  #overlay-top {
-    margin-inline: auto;
-    width: 230px;
-    /*background-color: light-dark(white, black);*/
-    left: 0;
-    top: 0;
-    /*
-padding: 5px 15px 10px 5px;
-border-radius: 0px 0px 20px 0px;
-*/
-  }
-  #overlay-bottem {
+
+  div#overlay-bottem {
     margin-inline: 100% 0% 0% 0%;
-    width: 75px;
-    /*background-color: light-dark(white, black);*/
+    width: 160px;
     bottom: 0;
     right: 0;
-    /*
-padding: 10px 5px 5px 15px;
-border-radius: 20px 0px 0px 0px;
-*/
   }
-  #overlay-top button, #overlay-top-left button, #overlay-bottem button {
-    margin: 0px;
-    padding: 0px;
-    border: 0px;
-    font-size: 30px;
-    background-color: transparent;
-    /*color: light-dark(black, white);*/
-    color: white;
+
+  div#settings {
+    margin-inline: auto;
+    width: 80%;
+    left: 10%;
+    top: 10%;
+    height: 80%;
   }
-  button.selected {
-    font-weight: bold;
+
+  div#overlay-bottem span {
+    margin: 0px 0px 0px 10px;
   }
-  #overlay-top-left {
-    margin-inline: 100% 0% 0% 0%;
-    width: 375px;
-    /*background-color: light-dark(white, black);*/
-    top: 0;
-    right: 0;
-    /*
-padding: 5px 15px 10px 5px;
-border-radius: 0px 0px 0px 20px;
-*/
-  }
+
   svg.hide, div.hide {
     display: none;
   }
 
+  div#settings {
+    background-color: black;
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+  }
 
-  /*  
-      :root {
-        color-schema: light dark;
-      }
-   */
+  div#settings p {
+    margin: auto;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  div#settings span {
+    margin: auto;
+    display: table;
+  }
+
+  div#settings button {
+    width: 64px;
+    height: 64px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-size: 40px;
+  }
+
+  div#settings button.selected {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  div#settings p.title {
+    font-size: 64px;
+    text-decoration: underline;
+    margin: 0 0 60px 0;
+  }
 </style>
 
