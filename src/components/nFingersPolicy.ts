@@ -1,12 +1,22 @@
+import { Player } from './player';
+
 export class NFingersPolicy {
+  private n: number;
+
   constructor() {
     // n is the amout of fingers selected
     this.n = 1;
   }
-  setN(n){
+
+  setN(n: number): void {
     this.n = n;
   }
-  drawFingers(dots){
+
+  getN(): number {
+    return this.n;
+  }
+
+  drawFingers(dots: Player[]) {
     if (this.n >= dots.length){
       return dots;
     }

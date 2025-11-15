@@ -25,10 +25,11 @@ export class Player {
   public drawDot(context: CanvasRenderingContext2D): void {
     context.fillStyle = this._color;
     context.beginPath();
-    context.arc(this.touch.clientX, this.touch.clientY, 45 + this.pulseValue / 5, 0, 2 * Math.PI);
+    context.arc(this.touch.clientX, this.touch.clientY, 40 + this.pulseValue / 5, 0, 2 * Math.PI);
     context.fill();
+    context.closePath();
 
-    if (this.pulseValue > 40) {
+    if (this.pulseValue > 50) {
       this.addPulse = false;
     } else if (this.pulseValue < 1) {
       this.addPulse = true;
@@ -44,5 +45,6 @@ export class Player {
     context.beginPath();
     context.arc(this.touch.clientX, this.touch.clientY, 80, 0, 2 * Math.PI);
     context.fill();
+    context.closePath();
   }
 }
