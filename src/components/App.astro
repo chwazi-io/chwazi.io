@@ -166,8 +166,18 @@
     width: 160px;
     bottom: 0;
     right: 0;
+    transition: all 0.75s;
+    transition-behavior: allow-discrete;
+    opacity: 1;
+    display: block;
+    height: auto;
   }
 
+  div#overlay-bottem.hide {
+    opacity: 0;
+    display: none;
+    height: 0;
+  }
   div#settings {
     margin-inline: auto;
     width: 80%;
@@ -180,7 +190,7 @@
     margin: 0px 0px 0px 10px;
   }
 
-  svg.hide, div.hide {
+  svg.hide, div#settings.hide {
     display: none;
   }
 
