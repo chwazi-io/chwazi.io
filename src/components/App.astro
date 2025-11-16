@@ -40,6 +40,7 @@
     <button id="buttonN4">4</button>
     <button id="buttonN5">5</button>
     </span>
+    <a id="linkLegal" href="/legal.txt">Legal</a>
   </div>
 </div>
 <script>
@@ -66,7 +67,6 @@
   function closeSettings(){
     overlaySettings.classList.add("hide");
   }
-
 
   const overlayBottem = document.getElementById("overlay-bottem"); 
   const overlays = [overlayBottem];
@@ -130,7 +130,7 @@
   }
 
   /*
-  The attribute "hideoverlay" in the HTML-tag <app-screen> will tell is if we need to hide the overlay.
+  The attribute "hideoverlay" in the HTML-tag <app-screen> will tell us if we need to hide the overlay.
    */
   const mutationCallback = (mutationsList, observer) => {
     for (const mutation of mutationsList) {
@@ -239,5 +239,13 @@
     top: 0;
     right: 0;
   }
+
+  a#linkLegal{
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 10px;
+  } 
 </style>
 
